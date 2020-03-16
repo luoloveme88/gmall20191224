@@ -15,7 +15,7 @@ public class Counter {
         }
 
         System.out.println(++num);
-         System.out.println("test checkout 003");
+         System.out.println("test checkout 008");
     }
 
 }
