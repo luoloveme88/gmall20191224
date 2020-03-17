@@ -23,6 +23,7 @@ public class Counter {
 
 
          System.out.println("hotfix");
+         System.out.println("hotfix2");
     }
 
 }
