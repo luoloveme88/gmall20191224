@@ -24,6 +24,8 @@ public class Counter {
 
          System.out.println("hotfix");
          System.out.println("hotfix2");
+
+         System.out.println("test merge001");
     }
 
 }
