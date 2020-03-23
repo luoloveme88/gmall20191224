@@ -1,4 +1,4 @@
-package com.atguigu.gamll.user.bean;
+package com.atguigu.gmall.beans;
 
 import javax.persistence.Id;
 import java.io.Serializable;

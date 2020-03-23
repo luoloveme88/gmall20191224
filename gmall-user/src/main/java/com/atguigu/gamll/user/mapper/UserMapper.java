@@ -1,6 +1,7 @@
 package com.atguigu.gamll.user.mapper;
 
-import com.atguigu.gamll.user.bean.UmsMember;
+
+import com.atguigu.gmall.beans.UmsMember;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

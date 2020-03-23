@@ -1,10 +1,10 @@
 package com.atguigu.gamll.user.service.impl;
 
-import com.atguigu.gamll.user.bean.UmsMember;
-import com.atguigu.gamll.user.bean.UmsMemberReceiveAddress;
 import com.atguigu.gamll.user.mapper.UmsMemberReceiveAddressMapper;
 import com.atguigu.gamll.user.mapper.UserMapper;
-import com.atguigu.gamll.user.service.UserService;
+import com.atguigu.gmall.beans.UmsMember;
+import com.atguigu.gmall.beans.UmsMemberReceiveAddress;
+import com.atguigu.gmall.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
-
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {

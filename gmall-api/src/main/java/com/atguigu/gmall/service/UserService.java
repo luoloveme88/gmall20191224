@@ -1,8 +1,7 @@
-package com.atguigu.gamll.user.service;
+package com.atguigu.gmall.service;
 
-import com.atguigu.gamll.user.bean.UmsMember;
-import com.atguigu.gamll.user.bean.UmsMemberReceiveAddress;
-import org.springframework.stereotype.Service;
+import com.atguigu.gmall.beans.UmsMember;
+import com.atguigu.gmall.beans.UmsMemberReceiveAddress;
 
 import java.util.List;
 

@@ -6,7 +6,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.atguigu.gamll.user.mapper")
-@org.mybatis.spring.annotation.MapperScan
 public class GamllUserApplication {
 
     public static void main(String[] args) {
