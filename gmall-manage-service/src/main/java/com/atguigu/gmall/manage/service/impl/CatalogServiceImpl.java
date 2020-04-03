@@ -2,7 +2,11 @@ package com.atguigu.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.gmall.beans.PmsBaseCatalog1;
+import com.atguigu.gmall.beans.PmsBaseCatalog2;
+import com.atguigu.gmall.beans.PmsBaseCatalog3;
 import com.atguigu.gmall.manage.mapper.PmsBaseCatalog1Mapper;
+import com.atguigu.gmall.manage.mapper.PmsBaseCatalog2Mapper;
+import com.atguigu.gmall.manage.mapper.PmsBaseCatalog3Mapper;
 import com.atguigu.gmall.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,11 +17,29 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Autowired
     PmsBaseCatalog1Mapper pmsBaseCatalog1Mapper;
-
+    @Autowired
+    PmsBaseCatalog2Mapper pmsBaseCatalog2Mapper;
+    @Autowired
+    PmsBaseCatalog3Mapper pmsBaseCatalog3Mapper;
     @Override
     public List<PmsBaseCatalog1> getCatalog1() {
-
-
         return pmsBaseCatalog1Mapper.selectAll();
+    }
+
+    @Override
+    public List<PmsBaseCatalog2> getCatalog2(String catalog1Id) {
+
+        PmsBaseCatalog2 temp  = new PmsBaseCatalog2();
+        temp.setCatalog1Id(catalog1Id);
+        return pmsBaseCatalog2Mapper.select(temp);
+    }
+
+    @Override
+    public List<PmsBaseCatalog3> getCatalog3(String catalog2Id) {
+
+        PmsBaseCatalog3 temp  = new PmsBaseCatalog3();
+        temp.setCatalog2Id(catalog2Id);
+        return pmsBaseCatalog3Mapper.select(temp);
+
     }
 }

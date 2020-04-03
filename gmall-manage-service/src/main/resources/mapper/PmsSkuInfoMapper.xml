@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.gmall.manage.mapper.PmsSkuInfoMapper">
+
+    <select id="selectSkuSaleAttrList" resultMap="selectSkuSaleAttrListMap">
+
+                SELECT
+                    psi.id as psi_id ,ssav.id as ssav_id,psi.*,ssav.*
+                FROM
+                    pms_sku_info psi
+                LEFT JOIN pms_sku_sale_attr_value ssav ON psi.id = ssav.sku_id
+                WHERE
+                    psi.product_id = #{productId}
+    </select>
+
+    <resultMap id="selectSkuSaleAttrListMap" type="com.atguigu.gmall.beans.PmsSkuInfo" autoMapping="true">
+        <result column="psi_id" property="id"></result>
+        <collection property="skuSaleAttrValueList" ofType="com.atguigu.gmall.beans.PmsSkuSaleAttrValue" autoMapping="true">
+            <result property="id" column="ssav_id"></result>
+        </collection>
+
+    </resultMap>
+</mapper>
