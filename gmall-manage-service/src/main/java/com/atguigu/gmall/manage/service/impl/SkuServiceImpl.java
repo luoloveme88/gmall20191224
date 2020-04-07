@@ -17,10 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class SkuServiceImpl implements SkuService {
@@ -76,18 +73,42 @@ public class SkuServiceImpl implements SkuService {
     public List<PmsSkuInfo> item(String skuId) {
         //获取redis连接
         Jedis jedis = redisUtil.getJedis();
-
         //查询缓存
-        String key ="sku:"+skuId+":info";//sku:108:info
+        String key = "sku:" + skuId + ":info";//sku:108:info
         String value = jedis.get(key);
-        //如果查到就返回结果,没有就查询数据库，并且放到缓存中
-        List<PmsSkuInfo> pmsSkuInfos;
-        if(StringUtils.isBlank(value)){
-             pmsSkuInfos = itemFromDb(skuId);
-            jedis.set(key,JSON.toJSON(pmsSkuInfos).toString());
 
-        }else {
-             pmsSkuInfos = JSON.parseArray(jedis.get(key), PmsSkuInfo.class);
+        //如果查到就返回结果,没有就查询数据库，并且放到缓存中
+        List<PmsSkuInfo> pmsSkuInfos = new ArrayList<>();
+        if (StringUtils.isBlank(value)) {//缓存中没有
+            String token = UUID.randomUUID().toString();
+            String OK = jedis.set("sku:" + skuId + ":lock", token, "nx", "px", 10);
+            if (StringUtils.isNotBlank(OK) && "OK".equals(OK)) {//获取锁
+                pmsSkuInfos = itemFromDb(skuId);
+                if (pmsSkuInfos == null) {
+                    jedis.setex(key, 3 * 60, JSON.toJSONString(""));
+                }
+                jedis.set(key, JSON.toJSON(pmsSkuInfos).toString());//防止缓存穿透，将null或者空字符串缓存给redis
+
+                String localToken = jedis.get("sku:" + skuId + ":lock");
+
+                // if (StringUtils.isNotBlank(localToken) && token.equals(localToken)) {
+                String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+                jedis.eval(script, Collections.singletonList("sku:" + skuId + ":lock"), Collections.singletonList(token));
+
+                //  jedis.del("sku:" + skuId + ":lock");//业务完成,手动释放掉锁
+                //}
+
+            } else {//没有获取到锁
+                try {
+                    Thread.sleep(3000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return item(skuId);
+            }
+        } else {//缓存中存在
+            pmsSkuInfos = JSON.parseArray(jedis.get(key), PmsSkuInfo.class);
         }
 
         return pmsSkuInfos;
