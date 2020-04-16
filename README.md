@@ -8,4 +8,7 @@
 
 商品详情展示 item-web :8082
 
+搜索项目  search-web : 8010
+          search-service:8011
+
 

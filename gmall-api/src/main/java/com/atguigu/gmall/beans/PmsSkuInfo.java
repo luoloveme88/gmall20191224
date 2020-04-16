@@ -11,7 +11,7 @@ import java.util.List;
  * @param
  * @return
  */
-public class PmsSkuInfo implements Serializable {
+public class  PmsSkuInfo implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

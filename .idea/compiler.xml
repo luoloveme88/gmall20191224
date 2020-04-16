@@ -7,13 +7,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gmall-common-util" />
-        <module name="gmall-manage-web" />
+        <module name="gmall-search-web" />
+        <module name="gmall-item-web" />
+        <module name="gmall-search-service" />
         <module name="gamll-user-service" />
         <module name="gmall-manage-service" />
         <module name="gmall-user-web" />
+        <module name="gmall-manage-web" />
         <module name="gmall-api" />
-        <module name="gmall-item-web" />
         <module name="gmall-service-util" />
+        <module name="gmall-redissontest" />
         <module name="gmall-web-util" />
       </profile>
     </annotationProcessing>
@@ -28,6 +31,10 @@
       <module name="gmall-manage-service" target="1.8" />
       <module name="gmall-manage-web" target="1.8" />
       <module name="gmall-parent" target="1.8" />
+      <module name="gmall-redissontest" target="1.8" />
+      <module name="gmall-search-service" target="1.8" />
+      <module name="gmall-search-web" target="1.8" />
+      <module name="gmall-search-web (1)" target="1.8" />
       <module name="gmall-service-util" target="1.8" />
       <module name="gmall-user-web" target="1.8" />
       <module name="gmall-web-util" target="1.8" />
@@ -37,6 +44,9 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="gmall-item-web" options="" />
+      <module name="gmall-redissontest" options="" />
+      <module name="gmall-search-service" options="" />
+      <module name="gmall-search-web (1)" options="-parameters" />
     </option>
   </component>
 </project>

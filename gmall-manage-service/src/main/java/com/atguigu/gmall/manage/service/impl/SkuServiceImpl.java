@@ -86,6 +86,8 @@ public class SkuServiceImpl implements SkuService {
                 pmsSkuInfos = itemFromDb(skuId);
                 if (pmsSkuInfos == null) {
                     jedis.setex(key, 3 * 60, JSON.toJSONString(""));
+
+
                 }
                 jedis.set(key, JSON.toJSON(pmsSkuInfos).toString());//防止缓存穿透，将null或者空字符串缓存给redis
 
@@ -129,5 +131,17 @@ public class SkuServiceImpl implements SkuService {
 
         return pmsSkuInfoMapper.selectSkuSaleAttrList(productId, skuId);
 
+    }
+
+    @Override
+    public List<PmsSkuInfo> getAllSku() {
+        List<PmsSkuInfo> pmsSkuInfos = pmsSkuInfoMapper.selectAll();
+        for (PmsSkuInfo pmsSkuInfo : pmsSkuInfos) {
+            PmsSkuAttrValue pmsSkuAttrValue = new PmsSkuAttrValue();
+            pmsSkuAttrValue.setSkuId(pmsSkuInfo.getId());
+            List<PmsSkuAttrValue> pmsSkuAttrValues = pmsSkuAttrValueMapper.select(pmsSkuAttrValue);
+            pmsSkuInfo.setSkuAttrValueList(pmsSkuAttrValues);
+        }
+        return pmsSkuInfos;
     }
 }
