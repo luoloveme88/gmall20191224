@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AttrServiceImpl implements AttrService {
@@ -24,6 +26,7 @@ public class AttrServiceImpl implements AttrService {
     PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
     @Autowired
     PmsBaseSaleAttrMapper pmsBaseSaleAttrMapper;
+
 
     @Override
     public List<PmsBaseAttrInfo> getAttrInfoList(String catalog3Id) {
@@ -84,6 +87,17 @@ public class AttrServiceImpl implements AttrService {
     @Override
     public List<PmsBaseSaleAttr> baseSaleAttrList() {
        return pmsBaseSaleAttrMapper.selectAll();
+
+
+    }
+
+    @Override
+    public List<PmsBaseAttrInfo> getPmsBaseAttrInfo(Set<String> skuValueIds) {
+
+        String valueIds = StringUtils.join(skuValueIds, ",");
+
+        return pmsBaseAttrInfoMapper.selectPmsBaseAttrInfoList(valueIds);
+
 
 
     }

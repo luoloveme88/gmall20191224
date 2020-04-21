@@ -10,5 +10,9 @@
 
 搜索项目  search-web : 8010
           search-service:8011
+          
+          
+购物车 web :8020
+      service:8021
 
 
